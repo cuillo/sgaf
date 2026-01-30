@@ -103,8 +103,21 @@ const Dashboard = () => {
                         <div className="w-2 h-8 bg-blue-500 rounded-full"></div>
                         Panel de Préstamos
                     </h2>
-                    <div className="max-w-md">
-                        <FilterBar onSearch={handleSearch} placeholder="Buscar por llave o solicitante..." />
+                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                        <div className="w-full md:max-w-md">
+                            <FilterBar onSearch={handleSearch} placeholder="Buscar por llave o solicitante..." />
+                        </div>
+                        <select
+                            value={ordering}
+                            onChange={(e) => handleSort(e.target.value)}
+                            className="w-full md:w-auto flex-shrink-0 px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="-fecha_prestamo">Más recientes primero</option>
+                            <option value="fecha_prestamo">Más antiguos primero</option>
+                            <option value="llave__nombre">Llave (A-Z)</option>
+                            <option value="-llave__nombre">Llave (Z-A)</option>
+                            <option value="solicitante__nombre">Solicitante (A-Z)</option>
+                        </select>
                     </div>
                 </div>
 
@@ -156,15 +169,9 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-3">
-                                            <thead className="bg-slate-50 border-b border-slate-200 text-left">
-                                                <tr>
-                                                    <SortableHeader label="Llave" sortKey="llave__nombre" currentOrdering={ordering} onSort={handleSort} />
-                                                    <SortableHeader label="Solicitante" sortKey="solicitante__nombre" currentOrdering={ordering} onSort={handleSort} />
-                                                    <SortableHeader label="Fecha Préstamo" sortKey="fecha_prestamo" currentOrdering={ordering} onSort={handleSort} />
-                                                    <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Obervación</th>
-                                                    <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
-                                                </tr>
-                                            </thead>
+                                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                                <Clock className="w-4 h-4 text-slate-500" />
+                                            </div>
                                             <div>
                                                 <div className="text-xs text-slate-400 font-medium uppercase tracking-wide">Fecha Préstamo</div>
                                                 <p className="text-sm font-semibold text-slate-700">

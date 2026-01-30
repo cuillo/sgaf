@@ -341,7 +341,7 @@ const PaymentsDashboard = () => {
                             <select
                                 value={selectedType}
                                 onChange={handleTypeChange}
-                                className="px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm min-w-[140px]"
+                                className="w-full md:w-48 px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
                             >
                                 <option value="">Todos los Tipos</option>
                                 {providerTypes.map(t => (
@@ -352,7 +352,7 @@ const PaymentsDashboard = () => {
                             <select
                                 value={selectedProvider}
                                 onChange={handleProviderChange}
-                                className="px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm min-w-[160px]"
+                                className="w-full md:w-64 px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
                             >
                                 <option value="">Todos los Proveedores</option>
                                 {providers.map(p => (
@@ -363,7 +363,7 @@ const PaymentsDashboard = () => {
                             <select
                                 value={statusFilter}
                                 onChange={handleStatusChange}
-                                className="px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm min-w-[120px]"
+                                className="w-full md:w-40 px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
                             >
                                 <option value="all">Ver: Todos</option>
                                 <option value="pending">Pendientes</option>

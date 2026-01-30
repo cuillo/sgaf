@@ -3,6 +3,7 @@ import api from '../../api';
 import { Search, Calendar, FileText, CheckCircle, Clock } from 'lucide-react';
 import Pagination from '../../components/common/Pagination';
 import FilterBar from '../../components/common/FilterBar';
+import SortableHeader from '../../components/common/SortableHeader';
 
 const LoanHistory = () => {
     const [loans, setLoans] = useState([]);
@@ -14,11 +15,16 @@ const LoanHistory = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('all'); // all, active, returned
+    const [ordering, setOrdering] = useState('-fecha_prestamo');
 
-    const fetchLoans = async (page = 1, search = '', status = 'all') => {
+    const fetchLoans = async (page = 1, search = searchQuery, status = statusFilter, order = ordering) => {
         setLoading(true);
         try {
-            const params = { page, search };
+            const params = {
+                page,
+                search,
+                ordering: order
+            };
 
             // Map status filter to API params
             if (status === 'active') {
@@ -41,8 +47,8 @@ const LoanHistory = () => {
     };
 
     useEffect(() => {
-        fetchLoans(currentPage, searchQuery, statusFilter);
-    }, [currentPage, statusFilter]);
+        fetchLoans(currentPage, searchQuery, statusFilter, ordering);
+    }, [currentPage, statusFilter, ordering]);
 
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -57,6 +63,11 @@ const LoanHistory = () => {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
+    };
+
+    const handleSort = (newOrdering) => {
+        setOrdering(newOrdering);
+        setCurrentPage(1);
     };
 
     const filteredLoans = loans; // Filtering is now server-side
@@ -96,10 +107,10 @@ const LoanHistory = () => {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Estado</th>
-                            <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Llave / Establecimiento</th>
-                            <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Solicitante</th>
-                            <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha Préstamo</th>
-                            <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha Devolución</th>
+                            <SortableHeader label="Llave / Establecimiento" sortKey="llave__nombre" currentOrdering={ordering} onSort={handleSort} />
+                            <SortableHeader label="Solicitante" sortKey="solicitante__nombre" currentOrdering={ordering} onSort={handleSort} />
+                            <SortableHeader label="Fecha Préstamo" sortKey="fecha_prestamo" currentOrdering={ordering} onSort={handleSort} />
+                            <SortableHeader label="Fecha Devolución" sortKey="fecha_devolucion" currentOrdering={ordering} onSort={handleSort} />
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">

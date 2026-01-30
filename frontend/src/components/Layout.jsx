@@ -35,25 +35,24 @@ const Layout = () => {
             </AnimatePresence>
 
             {/* Sidebar */}
-            <aside
+            <motion.aside
+                initial={false}
+                animate={{
+                    width: sidebarOpen || mobileMenuOpen ? 256 : 0,
+                    x: mobileMenuOpen || (sidebarOpen && window.innerWidth >= 768) ? 0 : (window.innerWidth < 768 ? -256 : 0)
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 className={`
-                    fixed md:relative inset-y-0 left-0 z-40 bg-slate-900 text-slate-200 flex flex-col transition-all duration-300 shadow-2xl
-                    ${mobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0'}
-                    ${sidebarOpen ? 'md:w-64' : 'md:w-0 md:overflow-hidden'}
+                    fixed md:relative inset-y-0 left-0 z-40 bg-slate-900 text-slate-200 flex flex-col shadow-2xl overflow-hidden
+                    ${!mobileMenuOpen && window.innerWidth < 768 ? '-translate-x-full' : ''}
                 `}
             >
-                <div className="p-6 flex items-center justify-center">
-                    {(sidebarOpen || mobileMenuOpen) ? (
-                        <div className="flex flex-col items-center gap-2 w-full">
-                            <div className="p-2 w-60 h-28 flex items-center justify-center">
-                                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="w-10 h-10 p-1 flex items-center justify-center">
+                <div className="p-6 flex items-center justify-center min-w-[256px]">
+                    <div className="flex flex-col items-center gap-2 w-full">
+                        <div className="p-2 w-60 h-28 flex items-center justify-center">
                             <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 <nav className="flex-1 px-3 space-y-2 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
@@ -62,7 +61,13 @@ const Layout = () => {
                         className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group text-sm ${isActive('/') ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'hover:bg-slate-800 hover:text-white'}`}
                     >
                         <Home className="w-5 h-5 flex-shrink-0" />
-                        {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Dashboard</span>}
+                        <motion.span
+                            initial={false}
+                            animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0, x: sidebarOpen || mobileMenuOpen ? 0 : -10 }}
+                            className="font-medium whitespace-nowrap"
+                        >
+                            Dashboard
+                        </motion.span>
                     </Link>
 
                     <Link
@@ -70,8 +75,18 @@ const Layout = () => {
                         className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group text-sm ${isActive('/establishments') ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'hover:bg-slate-800 hover:text-white'}`}
                     >
                         <Building className="w-5 h-5 flex-shrink-0" />
-                        {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Establecimientos</span>}
+                        <motion.span
+                            initial={false}
+                            animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0, x: sidebarOpen || mobileMenuOpen ? 0 : -10 }}
+                            className="font-medium whitespace-nowrap"
+                        >
+                            Establecimientos
+                        </motion.span>
                     </Link>
+
+                    <div className="py-1 px-4">
+                        <div className="border-t border-slate-500/50" />
+                    </div>
 
                     {/* Collapsible Menu: Préstamo Llaves */}
                     <div>
@@ -84,11 +99,19 @@ const Layout = () => {
                         >
                             <div className="flex items-center gap-3">
                                 <Key className="w-5 h-5 flex-shrink-0" />
-                                {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Préstamo Llaves</span>}
+                                <motion.span
+                                    initial={false}
+                                    animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0, x: sidebarOpen || mobileMenuOpen ? 0 : -10 }}
+                                    className="font-medium whitespace-nowrap"
+                                >
+                                    Préstamo Llaves
+                                </motion.span>
                             </div>
-                            {(sidebarOpen || mobileMenuOpen) && (
-                                isLoanMenuOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />
-                            )}
+                            <motion.div
+                                animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0 }}
+                            >
+                                {isLoanMenuOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                            </motion.div>
                         </button>
 
                         {/* Submenu */}
@@ -126,6 +149,10 @@ const Layout = () => {
                         )}
                     </div>
 
+                    <div className="py-1 px-4">
+                        <div className="border-t border-slate-500/50" />
+                    </div>
+
                     {/* Collapsible Menu: Servicios */}
                     <div>
                         <button
@@ -137,11 +164,19 @@ const Layout = () => {
                         >
                             <div className="flex items-center gap-3">
                                 <ClipboardList className="w-5 h-5 flex-shrink-0" />
-                                {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Gestión Servicios</span>}
+                                <motion.span
+                                    initial={false}
+                                    animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0, x: sidebarOpen || mobileMenuOpen ? 0 : -10 }}
+                                    className="font-medium whitespace-nowrap"
+                                >
+                                    Gestión Servicios
+                                </motion.span>
                             </div>
-                            {(sidebarOpen || mobileMenuOpen) && (
-                                isServicesMenuOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />
-                            )}
+                            <motion.div
+                                animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0 }}
+                            >
+                                {isServicesMenuOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                            </motion.div>
                         </button>
 
                         {/* Submenu */}
@@ -190,13 +225,19 @@ const Layout = () => {
                 <div className="p-4 border-t border-slate-800 space-y-2">
                     <button
                         onClick={logout}
-                        className={`w-full flex items-center ${(sidebarOpen || mobileMenuOpen) ? 'justify-start px-4' : 'justify-center'} py-2.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-xl transition-colors gap-3`}
+                        className={`w-full flex items-center justify-start px-4 py-2.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-xl transition-colors gap-3`}
                     >
                         <LogOut className="w-5 h-5 flex-shrink-0" />
-                        {(sidebarOpen || mobileMenuOpen) && <span className="text-sm font-medium">Cerrar Sesión</span>}
+                        <motion.span
+                            initial={false}
+                            animate={{ opacity: sidebarOpen || mobileMenuOpen ? 1 : 0, x: sidebarOpen || mobileMenuOpen ? 0 : -10 }}
+                            className="text-sm font-medium whitespace-nowrap"
+                        >
+                            Cerrar Sesión
+                        </motion.span>
                     </button>
                 </div>
-            </aside>
+            </motion.aside>
 
             {/* Main Content */}
             <main className="flex-1 overflow-auto bg-slate-50 relative w-full">
