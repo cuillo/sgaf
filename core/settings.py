@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'prestamo_llaves',
     'establecimientos',
     'servicios',
+    'funcionarios',
+    'impresoras',
 ]
 
 REST_FRAMEWORK = {

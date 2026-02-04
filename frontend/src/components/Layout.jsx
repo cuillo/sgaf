@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Key, Users, Home, ClipboardList, ChevronDown, ChevronRight, Menu, Building, LogOut, DollarSign } from 'lucide-react';
+import { Key, Users, Home, ClipboardList, ChevronDown, ChevronRight, Menu, Building, LogOut, DollarSign, Phone, Printer } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
@@ -8,6 +8,7 @@ const Layout = () => {
     const location = useLocation();
     const [isLoanMenuOpen, setLoanMenuOpen] = useState(true);
     const [isServicesMenuOpen, setServicesMenuOpen] = useState(true);
+    const [isFuncionariosMenuOpen, setFuncionariosMenuOpen] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const { user, logout } = useAuth();
 
@@ -49,6 +50,31 @@ const Layout = () => {
                         <Building className="w-5 h-5 flex-shrink-0" />
                         {sidebarOpen && <span className="font-medium">Establecimientos</span>}
                     </Link>
+
+                    <Link
+                        to="/funcionarios"
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group text-sm ${isActive('/funcionarios') || isActive('/funcionarios/list') ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'hover:bg-slate-800 hover:text-white'}`}
+                    >
+                        <Users className="w-5 h-5 flex-shrink-0" />
+                        {sidebarOpen && <span className="font-medium">Funcionarios</span>}
+                    </Link>
+
+                    <Link
+                        to="/telecomunicaciones"
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group text-sm ${isActive('/telecomunicaciones') ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'hover:bg-slate-800 hover:text-white'}`}
+                    >
+                        <Phone className="w-5 h-5 flex-shrink-0" />
+                        {sidebarOpen && <span className="font-medium">Control de Anexos</span>}
+                    </Link>
+
+                    <Link
+                        to="/impresoras"
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group text-sm ${isActive('/impresoras') ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'hover:bg-slate-800 hover:text-white'}`}
+                    >
+                        <Printer className="w-5 h-5 flex-shrink-0" />
+                        {sidebarOpen && <span className="font-medium">Impresoras</span>}
+                    </Link>
+
 
                     {/* Collapsible Menu: Préstamo Llaves */}
                     <div>
@@ -142,6 +168,7 @@ const Layout = () => {
                             </div>
                         )}
                     </div>
+
                 </nav>
 
                 <div className="p-4 border-t border-slate-800 space-y-2">
@@ -165,11 +192,18 @@ const Layout = () => {
                         <h2 className="text-xl font-bold text-slate-800">
                             {isActive('/') ? 'Dashboard General' :
                                 isActive('/establishments') ? 'Gestión de Establecimientos' :
-                                    isActive('/loans') ? 'Panel de Préstamos' :
-                                        isActive('/loans/new') ? 'Nuevo Préstamo' :
-                                            isActive('/history') ? 'Historial de Préstamos' :
-                                                isActive('/applicants') ? 'Gestión de Solicitantes' :
-                                                    isActive('/keys') ? 'Inventario de Llaves' : 'Sistema de Llaves'}
+                                    isActive('/telecomunicaciones') ? 'Control de Telecomunicaciones' :
+                                        isActive('/funcionarios') ? 'Portal de Personal' :
+                                            isActive('/funcionarios/list') ? 'Gestión de Personal' :
+                                                isActive('/funcionarios/subdirecciones') ? 'Estructura: Subdirecciones' :
+                                                    isActive('/funcionarios/departamentos') ? 'Estructura: Departamentos' :
+                                                        isActive('/funcionarios/unidades') ? 'Estructura: Unidades' :
+                                                            isActive('/loans') ? 'Panel de Préstamos' :
+                                                                isActive('/loans/new') ? 'Nuevo Préstamo' :
+                                                                    isActive('/history') ? 'Historial de Préstamos' :
+                                                                        isActive('/applicants') ? 'Gestión de Solicitantes' :
+                                                                            isActive('/keys') ? 'Inventario de Llaves' :
+                                                                                isActive('/impresoras') ? 'Gestión de Impresoras' : 'Sistema de Gestión'}
                         </h2>
                         <p className="text-sm text-slate-500">Bienvenido al sistema de control.</p>
                     </div>

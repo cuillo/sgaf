@@ -13,6 +13,16 @@ import ServicesDashboard from './pages/services/ServicesDashboard';
 import Providers from './pages/services/Providers';
 import PaymentsDashboard from './pages/services/PaymentsDashboard';
 import Login from './pages/Login';
+// Funcionarios
+import FuncionariosDashboard from './pages/funcionarios/FuncionariosDashboard';
+import FuncionariosList from './pages/funcionarios/FuncionariosList';
+import FuncionarioForm from './pages/funcionarios/FuncionarioForm';
+import Subdirecciones from './pages/funcionarios/Subdirecciones';
+import Departamentos from './pages/funcionarios/Departamentos';
+import Unidades from './pages/funcionarios/Unidades';
+import AnexosDashboard from './pages/telecomunicaciones/AnexosDashboard';
+import ImpresorasDashboard from './pages/impresoras/ImpresorasDashboard';
+
 
 // Private Route Wrapper
 const PrivateRoute = () => {
@@ -43,6 +53,18 @@ function App() {
               <Route path="services" element={<ServicesDashboard />} />
               <Route path="services/providers" element={<Providers />} />
               <Route path="services/payments" element={<PaymentsDashboard />} />
+              {/* Funcionarios */}
+              <Route path="funcionarios" element={<FuncionariosDashboard />} />
+              <Route path="funcionarios/list" element={<FuncionariosList />} />
+              <Route path="funcionarios/new" element={<FuncionarioForm />} />
+              <Route path="funcionarios/edit/:id" element={<FuncionarioForm />} />
+              <Route path="funcionarios/subdirecciones" element={<Subdirecciones />} />
+              <Route path="funcionarios/departamentos" element={<Departamentos />} />
+              <Route path="funcionarios/unidades" element={<Unidades />} />
+              {/* Telecomunicaciones */}
+              <Route path="telecomunicaciones" element={<AnexosDashboard />} />
+              {/* Impresoras */}
+              <Route path="impresoras" element={<ImpresorasDashboard />} />
             </Route>
           </Route>
         </Routes>

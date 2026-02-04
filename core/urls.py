@@ -28,4 +28,6 @@ urlpatterns = [
     path('api/', include('prestamo_llaves.urls')),
     path('api/', include('establecimientos.urls')),
     path('api/', include('servicios.urls')),
+    path('api/', include('funcionarios.urls')),
+    path('api/', include('impresoras.urls')),
 ]
